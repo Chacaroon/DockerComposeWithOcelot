@@ -21,6 +21,8 @@ builder.WebHost.ConfigureAppConfiguration((hostingContext, config) =>
 });
 
 builder.Services.AddOcelot();
+builder.Services.AddSwaggerForOcelot(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -28,7 +30,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerForOcelotUI(opt =>
+    {
+        opt.PathToSwaggerGenerator = "/swagger/docs";
+    });
 }
 
 app.UseHttpsRedirection();

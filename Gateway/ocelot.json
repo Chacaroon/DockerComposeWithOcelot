@@ -1,7 +1,7 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/{url}",
+      "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,44 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/api/{url}"
+      "UpstreamPathTemplate": "/api/{everything}",
+      "SwaggerKey": "api"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "another-api",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/another-api/{everything}",
+      "SwaggerKey": "another-api"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "api",
+      "TakeServersFromDownstreamService": true,
+      "Config": [
+        {
+          "Name": "API",
+          "Version": "v1",
+          "Url": "http://api:5001/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "another-api",
+      "TakeServersFromDownstreamService": true,
+      "Config": [
+        {
+          "Name": "Another API",
+          "Version": "v1",
+          "Url": "http://another-api:5002/swagger/v1/swagger.json"
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {

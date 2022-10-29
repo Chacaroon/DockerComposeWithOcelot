@@ -10,6 +10,16 @@ services:
       - default
     env_file:
       - ./API/.env
+    
+  another-api:
+    build:
+      context: .
+      dockerfile: ./AnotherAPI/Dockerfile
+    hostname: another-api
+    networks:
+      - default
+    env_file:
+      - ./AnotherAPI/.env
 
   gateway:
     build:
@@ -21,6 +31,7 @@ services:
       - "5000:5000"
     depends_on:
       - api
+      - another-api
     networks:
       - default
 
