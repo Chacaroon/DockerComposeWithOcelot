@@ -1,6 +1,7 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 5002
+ARG APP_PORT
+EXPOSE ${APP_PORT}
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
@@ -8,12 +9,14 @@ COPY ["AnotherAPI/AnotherAPI.csproj", "AnotherAPI/"]
 RUN dotnet restore "AnotherAPI/AnotherAPI.csproj"
 COPY . .
 WORKDIR "/src/AnotherAPI"
-RUN dotnet build "AnotherAPI.csproj" -c Release -o /app/build
+ARG APP_CONFIGURATION
+RUN dotnet build "AnotherAPI.csproj" -c ${APP_CONFIGURATION} -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "AnotherAPI.csproj" -c Release -o /app/publish
+RUN dotnet publish "AnotherAPI.csproj" -c ${APP_CONFIGURATION} -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_URLS "http://+:${APP_PORT}"
 ENTRYPOINT ["dotnet", "AnotherAPI.dll"]

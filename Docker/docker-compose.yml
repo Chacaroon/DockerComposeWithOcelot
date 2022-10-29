@@ -3,30 +3,39 @@ version: "3.9"
 services:
   api:
     build: 
-      context: .
+      context: ..
       dockerfile: ./API/Dockerfile
+      args:
+        APP_PORT: 5001
+        APP_CONFIGURATION: ${APP_CONFIGURATION}
+    env_file:
+      - .env
     hostname: api
     networks:
       - default
-    env_file:
-      - ./API/.env
-    
+  
   another-api:
     build:
-      context: .
+      context: ..
       dockerfile: ./AnotherAPI/Dockerfile
+      args:
+        APP_PORT: 5002
+        APP_CONFIGURATION: ${APP_CONFIGURATION}
+    env_file:
+      - .env
     hostname: another-api
     networks:
       - default
-    env_file:
-      - ./AnotherAPI/.env
 
   gateway:
     build:
-      context: .
+      context: ..
       dockerfile: ./Gateway/Dockerfile
+      args:
+        APP_PORT: 5000
+        APP_CONFIGURATION: ${APP_CONFIGURATION}
     env_file:
-      - ./Gateway/.env
+      - .env
     ports:
       - "5000:5000"
     depends_on:

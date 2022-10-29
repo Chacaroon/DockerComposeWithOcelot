@@ -1,15 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{D86D9CFA-632E-48D6-9C65-4AC671FD1736}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{6E6AE4FF-4183-4E02-B6FB-432675074D0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway.csproj", "{BDBEC8F7-2B8B-4325-BE5A-68124756AB9C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnotherAPI", "AnotherAPI\AnotherAPI.csproj", "{C0EA8CE2-B14C-4A18-B1FA-0C731D46CADA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{2EE18093-303C-4C5F-B06B-9099D2DF39B3}"
+	ProjectSection(SolutionItems) = preProject
+		Docker\.env = Docker\.env
+		Docker\docker-compose.yml = Docker\docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
