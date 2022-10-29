@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: ./API/Dockerfile
+    hostname: api
+    networks:
+      - default
+    env_file:
+      - ./API/.env
+
+  gateway:
+    build:
+      context: .
+      dockerfile: ./Gateway/Dockerfile
+    env_file:
+      - ./Gateway/.env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - api
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
